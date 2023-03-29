@@ -16,13 +16,15 @@ public class Job extends AbstractEntity {
     @ManyToMany
     private List<Skill> skills;
 
-    public Job() {
-    }
+
 
     public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
         this.skills = someSkills;
+    }
+
+    public Job() {
     }
 
     // Getters and setters.
