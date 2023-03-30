@@ -39,6 +39,7 @@ public class HomeController {
     public String index(Model model) {
 
         model.addAttribute("title", "My Jobs");
+        model.addAttribute("jobs", jobRepository.findAll());
 
 
         return "index";
@@ -71,6 +72,15 @@ public class HomeController {
 
 
         Optional<Employer> EmployerObj = employerRepository.findById(employerId);
+
+
+        if(!EmployerObj.isPresent()) {
+            model.addAttribute("title", "Add Job");
+            model.addAttribute("employers", employerRepository.findAll());
+            model.addAttribute("skills", skillRepository.findAll());
+            return "add";
+        }
+
         newJob.setEmployer(EmployerObj.get());
 
         jobRepository.save(newJob);
@@ -80,6 +90,10 @@ public class HomeController {
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
+
+
+        //Optional<Job>jobName = jobRepository.findById(jobId);
+        //jobName.get();
 
         return "view";
     }
