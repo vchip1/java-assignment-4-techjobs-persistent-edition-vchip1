@@ -19,6 +19,11 @@ public class Skill extends AbstractEntity {
     @Size(max=500, message="Please provide a shorter description length")
     private String description;
 
+    public Skill(String description) {
+        this.description = description;
+
+    }
+
 public Skill() {
 
 };
@@ -29,7 +34,11 @@ public Skill() {
         this.description = description;
     }
 
-//    public List<Job> getJobs() {
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    //    public List<Job> getJobs() {
 //        return jobs;
 //    }
 //

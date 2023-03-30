@@ -92,6 +92,10 @@ public class HomeController {
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
 
+        model.addAttribute("job", jobRepository.findById(jobId));
+        //model.addAttribute("employers", employerRepository.findById(jobId));
+        //model.addAttribute("skills", skillRepository.findAllById(jobId));
+
         //Optional<Job>jobName = jobRepository.findById(jobId);
         //jobName.get();
 
