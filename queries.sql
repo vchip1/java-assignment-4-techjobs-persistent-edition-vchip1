@@ -16,3 +16,5 @@ SELECT name FROM techjobs.employer;
 DROP TABLE job
 
 -- Part 4: Test it with SQL
+
+SELECT skills_id FROM techjobs.job_skills ORDER BY skills_id DESC;
