@@ -34,7 +34,6 @@ public class HomeController {
     //private int EmployerObj;
 
 
-
     @RequestMapping("")
     public String index(Model model) {
 
@@ -56,7 +55,7 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
 
         if (errors.hasErrors()) {
@@ -67,14 +66,14 @@ public class HomeController {
         }
 
 
-        List<Skill> skillobjs = (List<Skill>) skillRepository.findAllById(skills) ;
+        List<Skill> skillobjs = (List<Skill>) skillRepository.findAllById(skills);
         newJob.setSkills(skillobjs);
 
 
         Optional<Employer> EmployerObj = employerRepository.findById(employerId);
 
 
-        if(!EmployerObj.isPresent()) {
+        if (!EmployerObj.isPresent()) {
             model.addAttribute("title", "Add Job");
             model.addAttribute("employers", employerRepository.findAll());
             model.addAttribute("skills", skillRepository.findAll());
@@ -92,15 +91,32 @@ public class HomeController {
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
 
-        model.addAttribute("job", jobRepository.findById(jobId));
+        Optional optJob = jobRepository.findById(jobId);
+        if (optJob.isPresent()) {
+            Job job = (Job) optJob.get();
+            model.addAttribute("job", job);
+            return "view";
+        } else {
+            return "redirect:../";
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+        //model.addAttribute("job", jobRepository.findById(jobId));
         //model.addAttribute("employers", employerRepository.findById(jobId));
         //model.addAttribute("skills", skillRepository.findAllById(jobId));
 
         //Optional<Job>jobName = jobRepository.findById(jobId);
         //jobName.get();
 
-        return "view";
-    }
+        //return "view";
 
-
-}
